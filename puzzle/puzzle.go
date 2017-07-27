@@ -94,7 +94,16 @@ func (p *Puzzle) NewLocation() *Location {
 
 // Assign a value directly to a location without validation.
 func (p *Puzzle) Assign(l *Location, v int) {
-	p.Grid[l.Row][l.Col] = v
+	if l.Row < 9 && l.Col < 9 {
+		p.Grid[l.Row][l.Col] = v
+	}
+}
+
+// Reset the value at the location.
+func (p *Puzzle) Reset(l *Location) {
+	if l.Row < 9 && l.Col < 9 {
+		p.Grid[l.Row][l.Col] = 0
+	}
 }
 
 // alreadyInRow checks to see if the value is already in the row
@@ -155,7 +164,7 @@ func Solve(p *Puzzle) bool {
 			if Solve(p) {
 				return true
 			}
-			p.Assign(l, 0)
+			p.Reset(l)
 		}
 	}
 
