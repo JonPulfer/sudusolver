@@ -92,7 +92,8 @@ func (p *Puzzle) NewLocation() *Location {
 	return nil
 }
 
-// Assign a value directly to a location without validation.
+// Assign a value directly to a location without checking it is safe. Typically
+// this will be used to set a puzzle matrix up before attempting to solve it.
 func (p *Puzzle) Assign(l *Location, v int) {
 	if l.Row < 9 && l.Col < 9 {
 		p.Grid[l.Row][l.Col] = v
