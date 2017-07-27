@@ -114,3 +114,81 @@ func TestSolveOneAssigned(t *testing.T) {
 	}
 	fmt.Println(p)
 }
+
+func BenchmarkAlreadyInColumn(b *testing.B) {
+	p := NewPuzzle()
+	p.Assign(&Location{Row: 6, Col: 0}, 3)
+
+	l := p.NewLocation()
+
+	for i := 0; i < b.N; i++ {
+		if !p.alreadyInColumn(l, 3) {
+		}
+	}
+}
+
+func BenchmarkAlreadyInRow(b *testing.B) {
+	p := NewPuzzle()
+	p.Assign(&Location{Row: 0, Col: 6}, 3)
+
+	l := p.NewLocation()
+
+	for i := 0; i < b.N; i++ {
+		if !p.alreadyInRow(l, 3) {
+		}
+	}
+}
+
+func BenchmarkAlreadyInBlock(b *testing.B) {
+	p := NewPuzzle()
+	p.Assign(&Location{Row: 2, Col: 2}, 3)
+
+	l := p.NewLocation()
+
+	for i := 0; i < b.N; i++ {
+		if !p.alreadyInBlock(l, 3) {
+		}
+	}
+}
+
+func BenchmarkSolvingEmptyPuzzle(b *testing.B) {
+
+	p := NewPuzzle()
+	for i := 0; i < b.N; i++ {
+		if Solve(p) {
+		}
+	}
+}
+
+func BenchmarkSolvingPuzzleWithOneInput(b *testing.B) {
+
+	for i := 0; i < b.N; i++ {
+		p := NewPuzzle()
+		p.Assign(&Location{Row: 2, Col: 2}, 3)
+		if Solve(p) {
+		}
+	}
+}
+
+func BenchmarkSolvingPuzzleWithTwoInputs(b *testing.B) {
+
+	for i := 0; i < b.N; i++ {
+		p := NewPuzzle()
+		p.Assign(&Location{Row: 2, Col: 2}, 3)
+		p.Assign(&Location{Row: 8, Col: 0}, 3)
+		if Solve(p) {
+		}
+	}
+}
+
+func BenchmarkSolvingPuzzleWithThreeInputs(b *testing.B) {
+
+	for i := 0; i < b.N; i++ {
+		p := NewPuzzle()
+		p.Assign(&Location{Row: 2, Col: 2}, 3)
+		p.Assign(&Location{Row: 8, Col: 0}, 3)
+		p.Assign(&Location{Row: 7, Col: 8}, 3)
+		if Solve(p) {
+		}
+	}
+}
