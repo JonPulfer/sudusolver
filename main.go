@@ -12,7 +12,8 @@ import (
 var jsonPuzzle string
 
 func init() {
-	flag.StringVar(&jsonPuzzle, "json", "", "JSON encoded matrix of the puzzle with unassigned locations set to 0")
+	flag.StringVar(&jsonPuzzle, "json", "",
+		"JSON encoded matrix of the puzzle with unassigned locations set to 0")
 	flag.Parse()
 }
 
@@ -24,7 +25,12 @@ func main() {
 		buf.WriteString(jsonPuzzle)
 		p = puzzle.ParseJSONEncodedPuzzle(&buf)
 	}
-	puzzle.Solve(p)
+
+	if !puzzle.Solve(p) {
+		log.Println("failed to solve the puzzle")
+		return
+	}
+
 	if err := p.Serialize(os.Stdout); err != nil {
 		log.Printf("error serializing puzzle: %s\n", err.Error())
 	}
